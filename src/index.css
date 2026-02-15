@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Custom Theme (Tailwind v4 way) */
+@theme {
+  --color-navy: #1A2332;
+  --color-primaryRed: #E63946;
+  --color-softGray: #F8F9FA;
+  --color-lightBlue: #4A90E2;
+  --color-mutedRed: #FF6B6B;
+  --color-charcoal: #2D3748;
+}
+
+/* Custom animation */
+@keyframes pulseSlow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@utility animate-pulseSlow {
+  animation: pulseSlow 2s infinite;
+}
+
+body {
+  font-family: Inter, sans-serif;
+}
