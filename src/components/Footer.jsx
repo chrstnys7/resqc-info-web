@@ -5,7 +5,6 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-
     <footer className="bg-[#0B1120] text-slate-400 py-12 md:py-20 px-6 border-t border-slate-800/60 relative overflow-hidden">
       <Reveal>
         {/* Decorative background glow */}
@@ -16,13 +15,13 @@ const Footer = () => {
 
             {/* Brand & Mission Column */}
             <div className="sm:col-span-2 lg:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-rose-600 rounded-xl shadow-lg shadow-red-500/20 flex items-center justify-center">
-                  <ShieldCheck className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-white font-black text-2xl tracking-tighter">
-                  ResQC<span className="text-red-500">5</span>
-                </span>
+              <div className="flex items-center mb-6">
+                {/* Logo Image Only - No Text */}
+                <img 
+                  src="/assets/resqc-logo.png" 
+                  alt="ResQC Logo" 
+                  className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                />
               </div>
               <p className="text-slate-400 text-sm leading-relaxed mb-8 max-w-sm font-medium">
                 Revolutionizing Quezon City's emergency response through high-precision GPS telemetry and intelligent responder dispatch. Saving lives through seconds saved.
@@ -68,7 +67,7 @@ const Footer = () => {
             <div className="sm:col-span-2 lg:col-span-2">
               <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-6 md:mb-8">Stay Updated</h4>
               <p className="text-xs text-slate-500 mb-4 font-bold">Receive monthly safety reports and system updates.</p>
-              <form className="relative group max-w-md">
+              <form className="relative group max-w-md" onSubmit={(e) => e.preventDefault()}>
                 <input
                   type="email"
                   placeholder="agency@email.gov"
@@ -122,7 +121,6 @@ const Footer = () => {
         </div>
       </Reveal>
     </footer>
-
   );
 };
 

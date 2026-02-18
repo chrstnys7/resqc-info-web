@@ -41,7 +41,7 @@ const CTA = () => {
             hover:-translate-y-1 
             active:scale-95 group">
               <Download className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" />
-              Install ResQC Now
+              Install RESQC Now
             </button>
 
             <button className="w-full sm:w-auto flex items-center justify-center gap-3 border-2 border-slate-700 bg-slate-800/50 backdrop-blur-sm text-white px-8 md:px-10 py-4 rounded-2xl text-sm md:text-base font-black transition-all duration-300 

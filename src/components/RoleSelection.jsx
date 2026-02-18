@@ -8,7 +8,7 @@ import {
 import { Reveal } from "./Reveal";
 
 const RoleSelection = () => {
-  const [expandedRole, setExpandedRole] = useState('citizen');
+  const [expandedRole, setExpandedRole] = useState(null);
 
   const citizenFeatures = [
     { icon: MapPin, title: "Automatic GPS Location", desc: "Your precise location is captured instantly and shared with responders" },
@@ -40,23 +40,28 @@ const RoleSelection = () => {
   );
 
   return (
-    <section className="py-16 md:py-24 bg-slate-50/30">
+    <section className="py-16 md:py-24 bg-[#0B1120]">
       <Reveal>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">Select Your Role</h2>
-            <p className="text-slate-500 text-base md:text-lg max-w-2xl mx-auto px-4">Choose your path to connect with ResQC 5's emergency response network</p>
+            {/* Kept text-white here so the section title is actually visible on the dark BG */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">Select Your Role</h2>
+            <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto px-4">Choose your path to connect with ResQC 5's emergency response network</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-start">
 
-            {/* CITIZEN CARD */}
-            <div className={`transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] p-1.5 md:p-2 bg-white cursor-pointer hover:shadow-2xl ${expandedRole === 'citizen'
+            {/* CITIZEN CARD - Original White Style */}
+            <div 
+              onMouseEnter={() => setExpandedRole('citizen')}
+              onMouseLeave={() => setExpandedRole(null)}
+              className={`transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] p-1.5 md:p-2 bg-white cursor-default hover:shadow-2xl ${expandedRole === 'citizen'
                 ? 'ring-2 ring-red-500 shadow-2xl shadow-red-100'
                 : 'border border-slate-100 shadow-xl hover:border-red-200'
-              }`}>
+              }`}
+            >
               <div className="p-5 md:p-8">
-                <div className="flex justify-between items-center" onClick={() => setExpandedRole(expandedRole === 'citizen' ? null : 'citizen')}>
+                <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-4 md:space-x-5">
                     <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-red-50 flex items-center justify-center shadow-inner flex-shrink-0">
                       <Users className="w-6 h-6 md:w-7 md:h-7 text-red-500" />
@@ -89,13 +94,17 @@ const RoleSelection = () => {
               </div>
             </div>
 
-            {/* RESPONDER CARD */}
-            <div className={`transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] p-1.5 md:p-2 bg-white cursor-pointer hover:shadow-2xl ${expandedRole === 'responder'
+            {/* RESPONDER CARD - Original White Style */}
+            <div 
+              onMouseEnter={() => setExpandedRole('responder')}
+              onMouseLeave={() => setExpandedRole(null)}
+              className={`transition-all duration-500 rounded-[2rem] md:rounded-[2.5rem] p-1.5 md:p-2 bg-white cursor-default hover:shadow-2xl ${expandedRole === 'responder'
                 ? 'ring-2 ring-blue-500 shadow-2xl shadow-blue-100'
                 : 'border border-slate-100 shadow-xl hover:border-blue-200'
-              }`}>
+              }`}
+            >
               <div className="p-5 md:p-8">
-                <div className="flex justify-between items-center" onClick={() => setExpandedRole(expandedRole === 'responder' ? null : 'responder')}>
+                <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-4 md:space-x-5">
                     <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-blue-50 flex items-center justify-center shadow-inner flex-shrink-0">
                       <Ambulance className="w-6 h-6 md:w-7 md:h-7 text-blue-500" />
@@ -132,7 +141,6 @@ const RoleSelection = () => {
         </div>
       </Reveal>
     </section>
-
   );
 };
 

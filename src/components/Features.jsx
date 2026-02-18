@@ -1,22 +1,23 @@
 import { useState } from "react";
 import {
-  MapPin, Route, Bell, BarChart3, ChevronDown, ChevronUp,
-  Target, Satellite, Zap, Shield, Activity, TrendingUp, Info
+  MapPin, Route, Bell, ChevronDown, ChevronUp,
+  Target, Satellite, Zap, Shield, Activity, Info
 } from "lucide-react";
 import { Reveal } from "./Reveal";
 
-const FeatureCard = ({ icon: Icon, title, subtitle, iconBg, iconColor, isOpen, onClick, details }) => {
+const FeatureCard = ({ icon: Icon, title, subtitle, iconBg, iconColor, isOpen, onMouseEnter, onMouseLeave, details }) => {
   return (
-    <div className="flex flex-col gap-3 transition-all duration-500">
-      {/* Main Card */}
-      <button
-        onClick={onClick}
-        className={`w-full bg-white border rounded-[2rem] p-5 md:p-6 text-center transition-all duration-300 flex flex-col items-center outline-none select-none relative overflow-hidden ${isOpen
+    <div 
+      className="flex flex-col gap-3 transition-all duration-500"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <div
+        className={`w-full bg-white border rounded-[2rem] p-5 md:p-6 text-center transition-all duration-300 flex flex-col items-center select-none relative overflow-hidden cursor-default ${isOpen
             ? `border-transparent ring-2 ${iconColor === 'text-blue-500' ? 'ring-blue-400' : 'ring-red-400'} shadow-2xl`
-            : 'border-slate-100 hover:border-slate-200 hover:shadow-lg hover:-translate-y-1'
+            : 'border-slate-100 shadow-sm'
           }`}
       >
-        {/* Animated Background Glow on Open */}
         {isOpen && <div className={`absolute inset-0 opacity-5 bg-gradient-to-b from-current to-transparent ${iconColor}`} />}
 
         <div className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-2xl mb-3 md:mb-4 flex items-center justify-center shadow-sm transition-transform duration-500 ${iconBg} ${isOpen ? 'scale-110' : ''}`}>
@@ -33,9 +34,8 @@ const FeatureCard = ({ icon: Icon, title, subtitle, iconBg, iconColor, isOpen, o
             <ChevronDown className="w-5 h-5 text-slate-300" />
           )}
         </div>
-      </button>
+      </div>
 
-      {/* Expandable Detail Section */}
       {isOpen && (
         <div className="bg-white border border-slate-100 rounded-[2rem] p-5 shadow-xl animate-in fade-in zoom-in-95 slide-in-from-top-4 duration-300">
           <div className="flex items-center justify-center mb-5">
@@ -56,14 +56,12 @@ const FeatureCard = ({ icon: Icon, title, subtitle, iconBg, iconColor, isOpen, o
           </div>
 
           <div className="grid grid-cols-2 gap-2 pt-5 border-t border-slate-50">
-            <div className={`rounded-2xl p-2 md:p-3 text-center transition-colors ${iconBg}`}>
-              <p className={`text-xs md:text-sm font-black ${iconColor}`}>{details.stats[0].value}</p>
-              <p className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-tighter">{details.stats[0].label}</p>
-            </div>
-            <div className={`rounded-2xl p-2 md:p-3 text-center transition-colors ${iconBg}`}>
-              <p className={`text-xs md:text-sm font-black ${iconColor}`}>{details.stats[1].value}</p>
-              <p className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-tighter">{details.stats[1].label}</p>
-            </div>
+            {details.stats.map((stat, idx) => (
+              <div key={idx} className={`rounded-2xl p-2 md:p-3 text-center transition-colors ${iconBg}`}>
+                <p className={`text-xs md:text-sm font-black ${iconColor}`}>{stat.value}</p>
+                <p className="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-tighter">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -72,7 +70,8 @@ const FeatureCard = ({ icon: Icon, title, subtitle, iconBg, iconColor, isOpen, o
 };
 
 const Features = () => {
-  const [activeFeature, setActiveFeature] = useState("routing");
+  // CHANGED: Set to null so no card is open by default
+  const [activeFeature, setActiveFeature] = useState(null);
 
   const featureData = [
     {
@@ -134,26 +133,6 @@ const Features = () => {
           { label: "Reliability", value: "99.9%" }
         ]
       }
-    },
-    {
-      id: "analytics",
-      icon: BarChart3,
-      title: "Core Analytics",
-      subtitle: "Data-driven insights for command decisions",
-      iconBg: "bg-blue-50",
-      iconColor: "text-blue-500",
-      details: {
-        tag: "Performance Intelligence",
-        items: [
-          { icon: TrendingUp, text: "Live heatmaps of emergency hotspots" },
-          { icon: Activity, text: "Resource allocation optimization tools" },
-          { icon: Info, text: "Automatic post-mission digital debriefs" }
-        ],
-        stats: [
-          { label: "Data Quality", value: "100%" },
-          { label: "Processing", value: "Real-time" }
-        ]
-      }
     }
   ];
 
@@ -168,14 +147,14 @@ const Features = () => {
             </p>
           </div>
 
-          {/* Responsive Grid: 1 col (mobile), 2 cols (tablet), 4 cols (desktop) */}
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-start">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto">
             {featureData.map((feature) => (
               <FeatureCard
                 key={feature.id}
                 {...feature}
                 isOpen={activeFeature === feature.id}
-                onClick={() => setActiveFeature(activeFeature === feature.id ? null : feature.id)}
+                onMouseEnter={() => setActiveFeature(feature.id)}
+                onMouseLeave={() => setActiveFeature(null)}
               />
             ))}
           </div>
@@ -186,7 +165,7 @@ const Features = () => {
               <span className="text-[10px] md:text-xs font-bold text-slate-600 uppercase tracking-widest">System Status: Active</span>
             </div>
             <p className="text-slate-400 text-xs md:text-sm italic font-light">
-              {activeFeature ? "Click card again to collapse" : "Select a feature to view technical specifications"}
+               Hover a feature to view technical specifications
             </p>
           </div>
         </div>

@@ -3,10 +3,9 @@ import { Reveal } from "./Reveal";
 
 const AppShowcase = () => {
     return (
-
         <section className="py-16 md:py-24 bg-white relative overflow-hidden">
             <Reveal>
-                {/* Subtle Background Decoration - Hidden on small screens for performance */}
+                {/* Subtle Background Decoration */}
                 <div className="hidden md:block absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50/50 rounded-full blur-3xl -mr-64 -mt-64 z-0" />
 
                 <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -32,11 +31,13 @@ const AppShowcase = () => {
                             {/* Animated Gradient Glow */}
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent opacity-50 group-hover:opacity-70 transition-opacity duration-700" />
 
-                            {/* Abstract Phone Shape */}
-                            <div className="relative z-10 w-40 h-56 md:w-48 md:h-64 bg-slate-800 rounded-[2rem] md:rounded-[2.5rem] border-[4px] md:border-[6px] border-slate-700 shadow-2xl flex items-center justify-center overflow-hidden mb-6 group-hover:-translate-y-2 transition-transform duration-500">
-                                <div className="absolute top-0 w-16 md:w-20 h-3 md:h-4 bg-slate-700 rounded-b-xl" />
-                                <Shield className="w-12 h-12 md:w-16 md:h-16 text-blue-400 opacity-80" strokeWidth={1} />
-                                <div className="absolute bottom-3 md:bottom-4 w-8 md:w-10 h-1 bg-slate-700 rounded-full" />
+                            {/* Actual App Image Container */}
+                            <div className="relative z-10 w-48 md:w-56 mb-6 group-hover:-translate-y-2 transition-transform duration-500">
+                                <img 
+                                    src="/assets/resqc-mobile-app.png" 
+                                    alt="ResQC Mobile App Interface" 
+                                    className="w-full h-auto drop-shadow-[0_25px_25px_rgba(0,0,0,0.5)] rounded-[2.5rem]"
+                                />
                             </div>
 
                             <div className="relative z-10">
@@ -114,7 +115,6 @@ const AppShowcase = () => {
                 </div>
             </Reveal>
         </section>
-
     );
 };
 
